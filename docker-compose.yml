@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  web:
+    build: .
+    command: python /django_geo_map/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/django_geo_map
+    ports:
+      - 8000:8000
+    depends_on:
+      - db_pgis
+  db_pgis:
+    image: kartoza/postgis
+    environment:
+      - POSTGRES_DBNAME=gis
+      - POSTGRES_USER=django
+      - POSTGRES_PASS=django
+      - ALLOW_IP_RANGE=0.0.0.0/0
+    ports:
+      - 5432:5432
+    volumes:
+      - postgis_data:/var/lib/postgis/data/
+volumes:
+  postgis_data:
