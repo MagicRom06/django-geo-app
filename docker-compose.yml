@@ -6,6 +6,8 @@ services:
     command: python /django_geo_map/manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/django_geo_map
+    environment:
+      - LD_LIBRARY_PATH=/usr/local/lib
     ports:
       - 8000:8000
     depends_on:
